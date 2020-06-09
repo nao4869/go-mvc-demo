@@ -1,14 +1,16 @@
 package app
 
-import {
+import (
 	"net/http"
-	"github.com/nao4869/go-mvc-demo/controllers"
-}
 
+	"github.com/nao4869/go-mvc-demo/controllers"
+)
+
+// StartApplication -
 func StartApplication() {
 	http.HandleFunc("/users", controllers.GetUser)
 
-	if error := http.ListenAndServe("localhost:8080", nil) {
-		panic(error)
-	}
+	// if error := http.ListenAndServe("localhost:8080", nil) {
+	// 	panic(error)
+	// }
 }

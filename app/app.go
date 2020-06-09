@@ -10,7 +10,7 @@ import (
 func StartApplication() {
 	http.HandleFunc("/users", controllers.GetUser)
 
-	// if error := http.ListenAndServe("localhost:8080", nil) {
-	// 	panic(error)
-	// }
+	if error := http.ListenAndServe("localhost:8080", nil); error != nil {
+		panic(error)
+	}
 }

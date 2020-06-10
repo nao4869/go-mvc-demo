@@ -2,6 +2,7 @@ package domain
 
 import (
 	"fmt"
+	"net/http"
 )
 
 // temporaliry data base simulation
@@ -12,10 +13,15 @@ var (
 )
 
 // GetUser -
-func GetUser(userID int64) (*User, error) {
+func GetUser(userID int64) (*User, *ApplicationError) {
 	if user := users[userID]; user != nil {
 		return user, nil
 	}
 
-	return nil, fmt.Errorf("User %v was not found", userID)
+	// return the application error models when there is an error
+	return nil, &ApplicationError{
+		Message:    fmt.Sprintf("user %v was not found", userID),
+		StatusCode: http.StatusNotFound,
+		Code:       "not_found",
+	}
 }

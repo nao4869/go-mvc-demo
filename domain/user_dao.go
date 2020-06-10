@@ -12,7 +12,7 @@ var (
 	}
 )
 
-// GetUser -
+// GetUser - returns pointer to the user and an error
 func GetUser(userID int64) (*User, *ApplicationError) {
 	if user := users[userID]; user != nil {
 		return user, nil

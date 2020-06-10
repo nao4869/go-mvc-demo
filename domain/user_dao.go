@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -18,14 +17,5 @@ func GetUser(userID int64) (*User, error) {
 		return user, nil
 	}
 
-	return nil, errors.New(fmt.Sprintf("User %v was not found", userID))
-}
-
-// Another -
-func Another() {
-	user, integer, error := GetUser(1)
-
-	if error != nil {
-		return
-	}
+	return nil, fmt.Errorf("User %v was not found", userID)
 }

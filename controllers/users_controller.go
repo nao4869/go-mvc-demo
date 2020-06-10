@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
-	"github.com/nao4869/go-mvc-demo/services"
 )
 
 // GetUser -

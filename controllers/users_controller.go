@@ -7,7 +7,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/nao4869/go-mvc-demo/domain"
+	"../domain"
+	"../services"
 )
 
 // GetUser -

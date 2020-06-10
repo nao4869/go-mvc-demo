@@ -3,7 +3,7 @@ package app
 import (
 	"net/http"
 
-	"github.com/nao4869/go-mvc-demo/controllers"
+	"../controllers"
 )
 
 // StartApplication -

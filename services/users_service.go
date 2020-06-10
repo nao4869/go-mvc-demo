@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/nao4869/go-mvc-demo/domain"
+	"../domain"
 )
 
 // GetUser -

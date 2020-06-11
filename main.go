@@ -1,6 +1,6 @@
 package main
 
-import "github.com/nao4869/go-mvc-demo/app"
+import "./app"
 
 func main() {
 	app.StartApplication()

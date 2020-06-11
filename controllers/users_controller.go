@@ -9,36 +9,37 @@ import (
 
 	"../domain"
 	"../services"
+	"../utilities"
+	"github.com/gin-gonic/gin"
 )
 
 // GetUser -
-func GetUser(response http.ResponseWriter, request *http.Request) {
-	userID, error := (strconv.ParseInt(request.URL.Query().Get("user_id"), 10, 64))
+func GetUser(c *gin.Context) {
+	// parama key is the url which is user_id in this case
+	userID, error := (strconv.ParseInt(c.Param("user_id"), 10, 64))
 
 	// Error hundling for user id format
 	if error != nil {
-		arrError := &domain.ApplicationError{
+		apiError := &domain.ApplicationError{
 			Message:    "user id was must be a number",
 			StatusCode: http.StatusBadRequest,
 			Code:       "bad_request",
 		}
-		jsonValue, _ := json.Marshal(arrError)
-		response.WriteHeader(arrError.StatusCode)
-		response.Write([]byte("user id must be a number"))
+
+		// responding in a JSON form to the client
+		// c.JSON[http.StatusBadRequest, apiError]
+		utilities.Respond(c, apiError.StatusCode, apiError)
 		return
 	}
 
 	// Error hundling to see whether user id exist or not
-	user, error := services.GetUser(userID)
+	user, error := services.UserService.GetUser(userID)
 	if error != nil {
-		response.WriteHeader(http.StatusNotFound)
-		response.Write([]byte(error.Error()))
-		// handle the error and return to the client
+		c.JSON[apiError.StatusCode, apiError]
 		return
 	}
 
 	// return user to client
-	jsonValue, _ := json.Marshal(user)
-	response.Write(jsonValue)
-
+	//c.JSON(http.StatusOK, user)
+	utilities.Respond(c, http.StatusOK, user)
 }

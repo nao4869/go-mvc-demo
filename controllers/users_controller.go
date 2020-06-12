@@ -3,7 +3,7 @@ package controllers
 // requestから情報を受け取り、serviceへ送信する
 
 import (
-	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetUser -
+// GetUser - allows to respond to same object in a json format and application/xml format
 func GetUser(c *gin.Context) {
 	// parama key is the url which is user_id in this case
 	userID, error := (strconv.ParseInt(c.Param("user_id"), 10, 64))
@@ -21,25 +21,25 @@ func GetUser(c *gin.Context) {
 	// Error hundling for user id format
 	if error != nil {
 		apiError := &domain.ApplicationError{
-			Message:    "user id was must be a number",
+			Message:    "user id must be a number",
 			StatusCode: http.StatusBadRequest,
 			Code:       "bad_request",
 		}
 
 		// responding in a JSON form to the client
 		// c.JSON[http.StatusBadRequest, apiError]
-		utilities.Respond(c, apiError.StatusCode, apiError)
+		utilities.RespondError(c, apiError)
 		return
 	}
+	fmt.Println(userID)
 
 	// Error hundling to see whether user id exist or not
-	user, error := services.UserService.GetUser(userID)
-	if error != nil {
-		c.JSON[apiError.StatusCode, apiError]
+	user, apiError := services.GetUser(userID)
+	if apiError != nil {
+		utilities.RespondError(c, apiError)
 		return
 	}
 
 	// return user to client
-	//c.JSON(http.StatusOK, user)
 	utilities.Respond(c, http.StatusOK, user)
 }

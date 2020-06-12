@@ -5,5 +5,5 @@ import (
 )
 
 func mapUrls() {
-	router.GET("/users/:user_id?caller=1234", controllers.GetUser)
+	router.GET("/users/:user_id", controllers.GetUser)
 }

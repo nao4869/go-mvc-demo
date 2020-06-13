@@ -52,6 +52,7 @@ func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.C
 		}
 	}
 	// defer wait for function to return and close
+	/* this will defer right before actual return in the function */
 	defer response.Body.Close()
 
 	// status code larger than 299 means error response

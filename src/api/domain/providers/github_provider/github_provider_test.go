@@ -13,5 +13,11 @@ func TestGetAuthorizationHeader(t *testing.T) {
 }
 
 func TestDefer(t *testing.T) {
+	// defer works as stack 
+	// 3 - 2 - 1
+	defer fmt.Println("1")
+	defer fmt.Println("2")
+	defer fmt.Println("3")
+
 	fmt.Println("function's body")
 }

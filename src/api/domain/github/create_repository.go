@@ -13,15 +13,15 @@ type CreateRepoRequest struct {
 
 // CreateRepoResponse -
 type CreateRepoResponse struct {
-	ID          int64          `json:"id"`
-	Name        string         `json:"string"`
-	FullName    string         `json:"string"`
-	Owner       RepoOwner      `json:"owner"`
-	Permissions RepoPermissons `json:"permissions"`
+	ID          int64           `json:"id"`
+	Name        string          `json:"string"`
+	FullName    string          `json:"string"`
+	Owner       RepoOwner       `json:"owner"`
+	Permissions RepoPermissions `json:"permissions"`
 }
 
-// RepoIwner -
-type RepoIwner struct {
+// RepoOwner -
+type RepoOwner struct {
 	ID      int64  `json:"id"`
 	Login   string `json:"login"`
 	URL     string `json:"url"`

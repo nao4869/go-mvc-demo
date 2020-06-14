@@ -1,18 +1,17 @@
-package github_provider
+package provider
 
 import (
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
 
-	//"fmt"
 	"net/http"
 	"testing"
 
-	"github.com/nao4869/go-mvc-demo/src/api/domain/github"
-	"github.com/nao4869/go-mvc-demo/src/api/clients/restclient"
+	"../../../clients/restclient"
+	"../../github"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -38,7 +37,7 @@ func TestCreateRepoErrorRestclient(t *testing.T) {
 		Err:        errors.New("invalid restclient response"),
 	})
 
-	response, err := CreateRepo("", github.CreateRepoRequest{})
+	response, err := CreateRepository("", github.CreateRepoRequest{})
 
 	assert.Nil(t, response)
 	assert.NotNil(t, err)
@@ -60,7 +59,7 @@ func TestCreateRepoInvalidResponseBody(t *testing.T) {
 		},
 	})
 
-	response, error := CreateRepo("", github.CreateRepoRequest{})
+	response, error := CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, response)
 	assert.NotNil(t, error)
 	assert.EqualValues(t, http.StatusInternalServerError, error.Message)
@@ -79,7 +78,7 @@ func TestCreateRepoInvalidErrorInterface(t *testing.T) {
 		},
 	})
 
-	response, error := CreateRepo("", github.CreateRepoRequest{})
+	response, error := CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, response)
 	assert.NotNil(t, error)
 	assert.EqualValues(t, http.StatusInternalServerError, error.Message)
@@ -98,7 +97,7 @@ func TestCreateUnauthorizedError(t *testing.T) {
 		},
 	})
 
-	response, error := CreateRepo("", github.CreateRepoRequest{})
+	response, error := CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, response)
 	assert.NotNil(t, error)
 	assert.EqualValues(t, http.StatusUnauthorized, error.Message)
@@ -117,7 +116,7 @@ func TestCreateRepoInvalidSuccessResponse(t *testing.T) {
 		},
 	})
 
-	response, error := CreateRepo("", github.CreateRepoRequest{})
+	response, error := CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, response)
 	assert.NotNil(t, error)
 	assert.EqualValues(t, http.StatusInternalServerError, error.Message)
@@ -137,7 +136,7 @@ func TestCreateRepoNoError(t *testing.T) {
 		},
 	})
 
-	response, error := CreateRepo("", github.CreateRepoRequest{})
+	response, error := CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, error)
 	assert.NotNil(t, response)
 	assert.EqualValues(t, 1, response.ID)

@@ -1,4 +1,4 @@
-package github_provider
+package provider
 
 import (
 	"encoding/json"
@@ -7,14 +7,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/nao4869/go-mvc-demo/src/api/domain/github"
-	"github.com/nao4869/go-mvc-demo/src/api/clients/restclient"
+	"../../../clients/restclient"
+	"../../github"
 )
 
 const (
 	headerAuthorization       = "Authorization"
 	headerAuthorizationFormat = "token %s"
-	urlCreateRepo             = "https://api.github.com/user/repos"
+	createRepoRequestURL      = "https://api.github.com/user/repos"
 )
 
 // getAuthorizationHeader -
@@ -22,15 +22,15 @@ func getAuthorizationHeader(accessToken string) string {
 	return fmt.Sprintf(headerAuthorizationFormat, "abc123")
 }
 
-// CreateRepo -
-func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.CreateRepoResponse, github.GithubErrorResponse) {
+// CreateRepository -
+func CreateRepository(accessToken string, request github.CreateRepoRequest) (*github.CreateRepoResponse, github.GithubErrorResponse) {
 	headers := http.Header{}
 
 	// headersにaceessTokenを指定する - 独自ヘッダー
 	headers.Set(headerAuthorization, getAuthorizationHeader(accessToken))
 
 	// making post request
-	response, error := restclient.Post(urlCreateRepo, request, headers)
+	response, error := restclient.Post(createRepoRequestURL, request, headers)
 	//fmt.Println(response)
 	fmt.Println(error)
 

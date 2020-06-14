@@ -1,16 +1,16 @@
-// package polo
+package polo
 
-// import (
-// 	"net/http"
+import (
+	"net/http"
 
-// 	"github.com/gin-gonic/gin"
-// )
+	"github.com/gin-gonic/gin"
+)
 
-// const (
-// 	polo = "polo"
-// )
+const (
+	polo = "polo"
+)
 
-// // Polo -
-// func Polo(c *gin.Context) {
-// 	c.String(http.StatusOK, polo)
-// }
+// Polo -
+func Polo(c *gin.Context) {
+	c.String(http.StatusOK, polo)
+}

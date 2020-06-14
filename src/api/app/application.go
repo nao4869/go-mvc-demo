@@ -16,7 +16,7 @@ func init() {
 func StartApp() {
 	mapUrls()
 
-	if error := router.Run("localhost:8080"); error != nil {
+	if error := router.Run(":8080"); error != nil {
 		panic(error)
 	}
 }

@@ -16,8 +16,7 @@ func CreateRepository(c *gin.Context) {
 
 	// if the JSON value in request is valie - populate avobe createRepoRequest
 	if error := c.ShouldBindJSON(&request); error != nil {
-		apiError := errors.NewBadRequestError("invalid json body")
-		c.JSON(apiError.Status(), apiError)
+		c.JSON(error.Status(), apiError)
 		return
 	}
 
@@ -25,7 +24,7 @@ func CreateRepository(c *gin.Context) {
 
 	result, error := services.RepositoryService.CreateRepository(clientID, request)
 	if error != nil {
-		c.JSON(apiError.Status(), apiError)
+		c.JSON(error.Status(), apiError)
 		return
 	}
 	c.JSON(http.StatusCreated, result)

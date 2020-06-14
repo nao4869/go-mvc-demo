@@ -20,7 +20,7 @@ func CreateRepository(c *gin.Context) {
 
 	clientID := c.GetHeader("X-Client-Id")
 
-	result, err := services.RepositoryService.CreateRepository(clientID, request)
+	result, err := services.CreateRepository(clientID, request)
 	if err != nil {
 		c.JSON(err.Status(), err)
 		return
@@ -37,7 +37,7 @@ func CreateRepositories(c *gin.Context) {
 		return
 	}
 
-	result, err := services.RepositoryService.CreateRepositories(request)
+	result, err := services.CreateRepositories(request)
 	if err != nil {
 		c.JSON(err.Status(), err)
 		return

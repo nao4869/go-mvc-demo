@@ -7,8 +7,8 @@ import (
 	"log"
 	"net/http"
 
-	"../../clients/restclient"
-	"../../domain/github"
+	"github.com/nao4869/go-mvc-demo/src/api/clients/restclient"
+	"github.com/nao4869/go-mvc-demo/src/api/domain/github"
 )
 
 const (

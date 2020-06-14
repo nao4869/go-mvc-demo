@@ -3,8 +3,8 @@ package services
 import (
 	"strings"
 
-	"../config"
-	"../providers/github_provider"
+	"github.com/nao4869/go-mvc-demo/src/api/config"
+	"github.com/nao4869/go-mvc-demo/src/api/providers/github_provider"
 	"github.com/nao4869/go-mvc-demo/src/api/utils/errors"
 	"github.com/nao4869/go-mvc-demo/src/api/domain/repositories"
 	"github.com/nao4869/go-mvc-demo/src/api/domain/github"
@@ -46,7 +46,7 @@ func (s *repositoryService) CreateRepository(clientID string, input repositories
 	}
 
 	// sending create repo request with secret access token
-	response, _ := provider.CreateRepository(config.GetGithubAccessToken(), request)
+	response, error := provider.CreateRepository(config.GetGithubAccessToken(), request)
 	if error != nil {
 		// new api error based on what we recieve from Github
 		return nil, errors.NewAPIError(error.StatusCode, error.Message)

@@ -17,7 +17,7 @@ var (
 type Mock struct {
 	URL        string
 	HTTPMethod string
-	Repsponse  *http.Response
+	Response  *http.Response
 	Err        error
 }
 
@@ -44,6 +44,11 @@ func AddMockup(mock Mock) {
 	)] = &mock
 }
 
+// FlushMockups -
+func FlushMockups() {
+	mocks = make(map[string]*Mock)
+}
+
 // Post -
 // function to create Post request to the github api
 // if we have valid jsonBytes -> create request -> create client
@@ -55,7 +60,7 @@ func Post(url string, body interface{}, headers http.Header) (*http.Response, er
 		if mock == nil {
 			return nil, errors.New("No mockup found for this request")
 		}
-		return mock.Repsponse, mock.Err
+		return mock.Response, mock.Err
 	}
 
 	// responseのbodyにエラーがある場合は、できることはない為、errorをreturn

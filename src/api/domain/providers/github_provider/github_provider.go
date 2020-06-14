@@ -7,14 +7,14 @@ import (
 	"log"
 	"net/http"
 
-	"../../../clients/restclient"
-	"../../github"
+	"github.com/nao4869/go-mvc-demo/src/api/domain/github"
+	"github.com/nao4869/go-mvc-demo/src/api/clients/restclient"
 )
 
 const (
 	headerAuthorization       = "Authorization"
 	headerAuthorizationFormat = "token %s"
-	createRepoRequestURL      = "https://api.github.com/user/repos"
+	urlCreateRepo             = "https://api.github.com/user/repos"
 )
 
 // getAuthorizationHeader -
@@ -30,7 +30,7 @@ func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.C
 	headers.Set(headerAuthorization, getAuthorizationHeader(accessToken))
 
 	// making post request
-	response, error := restclient.Post(createRepoRequestURL, request, headers)
+	response, error := restclient.Post(urlCreateRepo, request, headers)
 	//fmt.Println(response)
 	fmt.Println(error)
 

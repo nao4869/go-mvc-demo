@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/nao4869/go-mvc-demo/src/api/controllers/repositories"
 )
 
 var (
@@ -14,7 +15,7 @@ func init() {
 
 // StartApp -
 func StartApp() {
-	mapUrls()
+	router.POST("/repositories", repositories.CreateRepository)
 
 	if error := router.Run(":8080"); error != nil {
 		panic(error)

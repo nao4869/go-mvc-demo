@@ -17,15 +17,13 @@ const (
 	createRepoRequestURL      = "https://api.github.com/user/repos"
 )
 
+// getAuthorizationHeader -
 func getAuthorizationHeader(accessToken string) string {
 	return fmt.Sprintf(headerAuthorizationFormat, "abc123")
 }
 
 // CreateRepo -
 func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.CreateRepoResponse, github.GithubErrorResponse) {
-	//header := getAuthorizationHeader(accessToken)
-	//fmt.Println(header)
-
 	headers := http.Header{}
 
 	// headersにaceessTokenを指定する - 独自ヘッダー
@@ -33,6 +31,8 @@ func CreateRepo(accessToken string, request github.CreateRepoRequest) (*github.C
 
 	// making post request
 	response, error := restclient.Post(createRepoRequestURL, request, headers)
+	//fmt.Println(response)
+	fmt.Println(error)
 
 	// if we have an error, check error without checking success response
 	if error != nil {

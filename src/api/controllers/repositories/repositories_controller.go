@@ -11,20 +11,18 @@ import (
 
 // CreateRepository - create repo request
 func CreateRepository(c *gin.Context) {
-	// type CreateRepositoryRequest empty variable
-	var request repositories.CreateRepositoryRequest
-
-	// if the JSON value in request is valie - populate avobe createRepoRequest
-	if error := c.ShouldBindJSON(&request); error != nil {
-		c.JSON(error.Status(), apiError)
+	var request repositories.CreateRepoRequest
+	if err := c.ShouldBindJSON(&request); err != nil {
+		apiErr := errors.NewBadRequestError("invalid json body")
+		c.JSON(apiErr.Status(), apiErr)
 		return
 	}
 
 	clientID := c.GetHeader("X-Client-Id")
 
-	result, error := services.RepositoryService.CreateRepository(clientID, request)
-	if error != nil {
-		c.JSON(error.Status(), apiError)
+	result, err := services.RepositoryService.CreateRepo(clientID, request)
+	if err != nil {
+		c.JSON(err.Status(), err)
 		return
 	}
 	c.JSON(http.StatusCreated, result)

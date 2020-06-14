@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./api/app"
+	"github.com/nao4869/go-mvc-demo/src/api/app"
 )
 
 func main() {

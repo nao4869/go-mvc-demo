@@ -12,8 +12,9 @@ func init() {
 	router = gin.Default()
 }
 
+// StartApp -
 func StartApp() {
-	//mapUrls()
+	mapUrls()
 
 	if error := router.Run("localhost:8080"); error != nil {
 		panic(error)

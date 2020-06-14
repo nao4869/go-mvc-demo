@@ -10,57 +10,57 @@ type APIError interface {
 }
 
 type apiError struct {
-	status  int    `json:"status"`
-	message string `json:"message"`
-	error   string `json:"error,omitempty"`
+	AStatus  int    `json:"status"`
+	AMessage string `json:"message"`
+	AError   string `json:"error,omitempty"`
 }
 
 // return - int
 // takes pointer to *apiError
 func (e *apiError) Status() int {
-	return e.status
+	return e.AStatus
 }
 
 // return - int
 // takes pointer to *apiError
 func (e *apiError) Message() string {
-	return e.message
+	return e.AMessage
 }
 
 // return - int
 // takes pointer to *apiError
 func (e *apiError) Error() string {
-	return e.error
+	return e.AError
 }
 
 // NewAPIError -
 func NewAPIError(statusCode int, message string) APIError {
 	return &apiError{
-		status:  statusCode,
-		message: message,
+		AStatus:  statusCode,
+		AMessage: message,
 	}
 }
 
 // NewNotFoundAPIError -
 func NewNotFoundAPIError(message string) APIError {
 	return &apiError{
-		status:  http.StatusNotFound,
-		message: message,
+		AStatus:  http.StatusNotFound,
+		AMessage: message,
 	}
 }
 
 // NewInternalServerError -
 func NewInternalServerError(message string) APIError {
 	return &apiError{
-		status:  http.StatusInternalServerError,
-		message: message,
+		AStatus:  http.StatusInternalServerError,
+		AMessage: message,
 	}
 }
 
 // NewBadRequestError -
 func NewBadRequestError(message string) APIError {
 	return &apiError{
-		status:  http.StatusBadRequest,
-		message: message,
+		AStatus:  http.StatusBadRequest,
+		AMessage: message,
 	}
 }

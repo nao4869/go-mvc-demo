@@ -38,10 +38,7 @@ func StopMockups() {
 
 // AddMockup -
 func AddMockup(mock Mock) {
-	mocks[getMockID(
-		mock.HTTPMethod,
-		mock.URL,
-	)] = &mock
+	mocks[getMockID(mock.HTTPMethod,mock.URL)] = &mock
 }
 
 // FlushMockups -

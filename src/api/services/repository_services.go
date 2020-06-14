@@ -5,8 +5,8 @@ import (
 
 	"../config"
 	"../providers/github_provider"
-	"../utils/errors"
-	"../domain/repositories"
+	"github.com/nao4869/go-mvc-demo/src/api/utils/errors"
+	"github.com/nao4869/go-mvc-demo/src/api/domain/repositories"
 	"github.com/nao4869/go-mvc-demo/src/api/domain/github"
 )
 
@@ -14,13 +14,14 @@ import (
 
 type repositoryService struct{}
 
-type repositoryServiceInterface interface {
-	CreateRepository(request repositories.CreateRepositoryRequest) (*repositories.CreateRepositoryResponse, errors.APIError)
+type repositoriesServiceInterface interface {
+	CreateRepository(clientID string, request repositories.CreateRepositoryRequest) (*repositories.CreateRepositoryResponse, errors.APIError)
+	//CreateRepos(request []repositories.CreateRepoRequest) (repositories.CreateReposResponse, errors.ApiError)
 }
 
 var (
 	// RepositoryService -
-	RepositoryService repositoryServiceInterface
+	RepositoryService repositoriesServiceInterface
 )
 
 func init() {
@@ -31,7 +32,7 @@ func init() {
 	return - CreateRepositoryResponse, errors.APIError
 	argument - request interface{}
 */
-func (s *repositoryService) CreateRepository(input repositories.CreateRepositoryRequest) (*repositories.CreateRepositoryResponse, errors.APIError) {
+func (s *repositoryService) CreateRepository(clientID string, input repositories.CreateRepositoryRequest) (*repositories.CreateRepositoryResponse, errors.APIError) {
 	input.Name = strings.TrimSpace(input.Name)
 
 	if input.Name == "" {
@@ -40,12 +41,12 @@ func (s *repositoryService) CreateRepository(input repositories.CreateRepository
 
 	request := github.CreateRepoRequest{
 		Name:        input.Name,
-		Private:     false,
 		Description: input.Description,
+		Private:     false,
 	}
 
 	// sending create repo request with secret access token
-	response, error := provider.CreateRepository(config.GetGithubAccessToken(), request)
+	response, _ := provider.CreateRepository(config.GetGithubAccessToken(), request)
 	if error != nil {
 		// new api error based on what we recieve from Github
 		return nil, errors.NewAPIError(error.StatusCode, error.Message)

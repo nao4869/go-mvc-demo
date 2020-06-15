@@ -1,8 +1,8 @@
 package app
 
 import (
+	"../controllers/repositories"
 	"github.com/gin-gonic/gin"
-	"github.com/nao4869/go-mvc-demo/src/api/controllers/repositories"
 )
 
 var (

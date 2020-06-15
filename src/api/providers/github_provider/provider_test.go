@@ -9,9 +9,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/nao4869/go-mvc-demo/src/api/clients/restclient"
-	"github.com/nao4869/go-mvc-demo/src/api/domain/github"
-	"github.com/nao4869/go-mvc-demo/src/api/providers/github_provider"
+	"../../clients/restclient"
+	"../../domain/github"
+	"../../providers/github_provider"
 	"github.com/stretchr/testify/assert"
 )
 

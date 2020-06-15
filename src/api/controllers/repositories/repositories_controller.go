@@ -1,12 +1,13 @@
 package repositories
 
 import (
+	"log"
 	"net/http"
 
+	"../../domain/repositories"
+	"../../services"
+	"../../utils/errors"
 	"github.com/gin-gonic/gin"
-	"github.com/nao4869/go-mvc-demo/src/api/domain/repositories"
-	"github.com/nao4869/go-mvc-demo/src/api/services"
-	"github.com/nao4869/go-mvc-demo/src/api/utils/errors"
 )
 
 // CreateRepository - create repo request
@@ -22,6 +23,7 @@ func CreateRepository(c *gin.Context) {
 
 	result, err := services.RepositoryService.CreateRepository(clientID, request)
 	if err != nil {
+		log.Println("BC")
 		c.JSON(err.Status(), err)
 		return
 	}

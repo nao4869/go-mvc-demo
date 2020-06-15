@@ -3,11 +3,11 @@ package services
 import (
 	"strings"
 
-	"github.com/nao4869/go-mvc-demo/src/api/config"
-	"github.com/nao4869/go-mvc-demo/src/api/providers/github_provider"
-	"github.com/nao4869/go-mvc-demo/src/api/utils/errors"
-	"github.com/nao4869/go-mvc-demo/src/api/domain/repositories"
-	"github.com/nao4869/go-mvc-demo/src/api/domain/github"
+	"../config"
+	"../providers/github_provider"
+	"../utils/errors"
+	"../domain/repositories"
+	"../domain/github"
 )
 
 // Entire Businness logic is in the services
@@ -16,7 +16,7 @@ type repositoryService struct{}
 
 type repositoriesServiceInterface interface {
 	CreateRepository(clientID string, request repositories.CreateRepositoryRequest) (*repositories.CreateRepositoryResponse, errors.APIError)
-	//CreateRepositories(request []repositories.CreateRepositoryRequest) (repositories.CreateRepositoriesResponse, errors.ApiError)
+	//CreateRepositories(request []repositories.CreateRepositoryRequest) (repositories.CreateRepositoryResponse, errors.APIError)
 }
 
 var (

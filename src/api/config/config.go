@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	apiGithubAccessToken = "SECRET_GITHUB_ACCESS_TOKEN"
+	secretGithubAccessToken = "SECRET_GITHUB_ACCESS_TOKEN"
 	// LogLevel -
 	LogLevel      = "info"
 	goEnvironment = "GO_ENVIRONMENT"
@@ -13,7 +13,7 @@ const (
 )
 
 var (
-	githubAccessToken = os.Getenv(apiGithubAccessToken)
+	githubAccessToken = os.Getenv(secretGithubAccessToken)
 )
 
 // GetGithubAccessToken - function to return secret access token

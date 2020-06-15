@@ -7,8 +7,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/nao4869/go-mvc-demo/src/api/clients/restclient"
-	"github.com/nao4869/go-mvc-demo/src/api/domain/github"
+	"../../clients/restclient"
+	"../../domain/github"
 )
 
 const (
@@ -19,7 +19,7 @@ const (
 
 // getAuthorizationHeader -
 func getAuthorizationHeader(accessToken string) string {
-	return fmt.Sprintf(headerAuthorizationFormat, "abc123")
+	return fmt.Sprintf(headerAuthorizationFormat, accessToken)
 }
 
 // CreateRepository -

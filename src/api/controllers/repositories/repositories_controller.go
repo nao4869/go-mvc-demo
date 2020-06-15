@@ -20,7 +20,7 @@ func CreateRepository(c *gin.Context) {
 
 	clientID := c.GetHeader("X-Client-Id")
 
-	result, err := services.CreateRepository(clientID, request)
+	result, err := services.RepositoryService.CreateRepository(clientID, request)
 	if err != nil {
 		c.JSON(err.Status(), err)
 		return
@@ -29,18 +29,18 @@ func CreateRepository(c *gin.Context) {
 }
 
 // CreateRepositories -
-func CreateRepositories(c *gin.Context) {
-	var request []repositories.CreateRepositoryRequest
-	if err := c.ShouldBindJSON(&request); err != nil {
-		apiErr := errors.NewBadRequestError("invalid json body")
-		c.JSON(apiErr.Status(), apiErr)
-		return
-	}
+// func CreateRepositories(c *gin.Context) {
+// 	var request []repositories.CreateRepositoryRequest
+// 	if err := c.ShouldBindJSON(&request); err != nil {
+// 		apiErr := errors.NewBadRequestError("invalid json body")
+// 		c.JSON(apiErr.Status(), apiErr)
+// 		return
+// 	}
 
-	result, err := services.CreateRepositories(request)
-	if err != nil {
-		c.JSON(err.Status(), err)
-		return
-	}
-	c.JSON(result.StatusCode, result)
-}
+// 	result, err := services.RepositoryService.CreateRepositories(request)
+// 	if err != nil {
+// 		c.JSON(err.Status(), err)
+// 		return
+// 	}
+// 	c.JSON(result.StatusCode, result)
+// }

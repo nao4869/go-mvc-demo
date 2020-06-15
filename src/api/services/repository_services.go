@@ -16,7 +16,7 @@ type repositoryService struct{}
 
 type repositoriesServiceInterface interface {
 	CreateRepository(clientID string, request repositories.CreateRepositoryRequest) (*repositories.CreateRepositoryResponse, errors.APIError)
-	//CreateRepositories(request []repositories.CreateRepoRequest) (repositories.CreateRepositoriesResponse, errors.ApiError)
+	CreateRepositories(request []repositories.CreateRepoRequest) (repositories.CreateRepositoriesResponse, errors.ApiError)
 }
 
 var (

@@ -21,11 +21,11 @@ func TestMain(m *testing.M) {
 }
 
 func TestConstants(t *testing.T) {
-	assert.EqualValues(t, "Authorization", providers.headerAuthorization)
+	assert.EqualValues(t, "Authorization", provider.headerAuthorization)
 }
 
 func TestGetAuthorizationHeader(t *testing.T) {
-	header := providers.getAuthorizationHeader("abc123")
+	header := provider.getAuthorizationHeader("abc123")
 	assert.EqualValues(t, "token abc123", header)
 }
 
@@ -37,7 +37,7 @@ func TestCreateRepoErrorRestclient(t *testing.T) {
 		Err:        errors.New("invalid restclient response"),
 	})
 
-	response, err := providers.CreateRepository("", github.CreateRepoRequest{})
+	response, err := provider.CreateRepository("", github.CreateRepoRequest{})
 
 	assert.Nil(t, response)
 	assert.NotNil(t, err)
@@ -59,7 +59,7 @@ func TestCreateRepoInvalidResponseBody(t *testing.T) {
 		},
 	})
 
-	response, error := providers.CreateRepository("", github.CreateRepoRequest{})
+	response, error := provider.CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, response)
 	assert.NotNil(t, error)
 	assert.EqualValues(t, http.StatusInternalServerError, error.Message)
@@ -78,7 +78,7 @@ func TestCreateRepoInvalidErrorInterface(t *testing.T) {
 		},
 	})
 
-	response, error := providers.CreateRepository("", github.CreateRepoRequest{})
+	response, error := provider.CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, response)
 	assert.NotNil(t, error)
 	assert.EqualValues(t, http.StatusInternalServerError, error.Message)
@@ -97,7 +97,7 @@ func TestCreateUnauthorizedError(t *testing.T) {
 		},
 	})
 
-	response, error := providers.CreateRepository("", github.CreateRepoRequest{})
+	response, error := provider.CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, response)
 	assert.NotNil(t, error)
 	assert.EqualValues(t, http.StatusUnauthorized, error.Message)
@@ -116,7 +116,7 @@ func TestCreateRepoInvalidSuccessResponse(t *testing.T) {
 		},
 	})
 
-	response, error := providers.CreateRepository("", github.CreateRepoRequest{})
+	response, error := provider.CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, response)
 	assert.NotNil(t, error)
 	assert.EqualValues(t, http.StatusInternalServerError, error.Message)
@@ -136,7 +136,7 @@ func TestCreateRepoNoError(t *testing.T) {
 		},
 	})
 
-	response, error := providers.CreateRepository("", github.CreateRepoRequest{})
+	response, error := provider.CreateRepository("", github.CreateRepoRequest{})
 	assert.Nil(t, error)
 	assert.NotNil(t, response)
 	assert.EqualValues(t, 1, response.ID)

@@ -46,7 +46,7 @@ func NewAPIError(statusCode int, message string) APIError {
 }
 
 // NewAPIErrFromBytes -
-func NewAPIErrFromBytes(body []byte) (ApiError, error) {
+func NewAPIErrFromBytes(body []byte) (APIError, error) {
 	var result apiError
 	if err := json.Unmarshal(body, &result); err != nil {
 		return nil, errors.New("invalid json body")

@@ -36,6 +36,6 @@ type CreateRepositoriesResponse struct {
 
 // CreateRepositoriesResult -
 type CreateRepositoriesResult struct {
-	Response CreateRepositoryResponse `json:"repo"`
+	Response *CreateRepositoryResponse `json:"repo"`
 	Error    errors.APIError          `json:"error"`
 }

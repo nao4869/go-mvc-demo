@@ -154,7 +154,7 @@ func (s *repositoryService) CreateRepositoryConcurrent(
 		return
 	}
 
-	result, error := s.CreateRepository(input)
+	result, error := s.CreateRepository("TODO_client_id", input)
 	if error != nil {
 		output <- repositories.CreateRepositoriesResult{Error: error}
 		return

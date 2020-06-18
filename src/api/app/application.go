@@ -15,7 +15,8 @@ func init() {
 
 // StartApp -
 func StartApp() {
-	router.POST("/repositories", repositories.CreateRepository)
+	router.POST("/repository", repositories.CreateRepository)
+	router.POST("/repositories", repositories.CreateRepositories)
 
 	if error := router.Run(":8080"); error != nil {
 		panic(error)

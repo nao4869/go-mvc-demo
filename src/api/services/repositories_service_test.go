@@ -9,6 +9,7 @@ import (
 
 	"../clients/restclient"
 	"../domain/repositories"
+	"github.com/nao4869/go-mvc-demo/src/api/services"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,7 +22,10 @@ func TestMain(m *testing.M) {
 func TestCreateRepositoryInvalidInputName(t *testing.T) {
 	request := repositories.CreateRepositoryRequest{}
 
-	result, error := RepositoryService.CreateRepository(request)
+	result, error := services.RepositoryService.CreateRepository(
+		"Client ID",
+		request,
+	)
 
 	assert.Nil(t, result)
 	assert.NotNil(t, error)
@@ -67,4 +71,24 @@ func TestCreateRepositoryNoError(t *testing.T) {
 	assert.EqualValues(t, 1, result.ID)
 	assert.EqualValues(t, "", result.Name)
 	assert.EqualValues(t, "", result.Owner)
+}
+
+func TestCreateRepoConcurrentInvalidRequest(t *testing.T) {
+	request := repositories.CreateRepositoryRequest{}
+
+	output := make(chan repositories.CreateRepositoriesResult)
+
+	service := repositoryService{}
+
+	go service.CreateRepositoryConcurrent(
+		request,
+		output,
+	)
+
+	result := <-output
+	assert.NotNil(t, result)
+	assert.Nil(t, result.Response)
+	assert.NotNil(t, result.Error)
+	assert.EqualValues(t, http.StatusBadRequest, result.Error.Status())
+	assert.EqualValues(t, "invalid repository name", result.Error.Message())
 }

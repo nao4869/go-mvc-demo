@@ -1,12 +1,14 @@
 package services
 
 import (
+	"fmt"
 	"net/http"
 	"sync"
 
 	"../config"
 	"../domain/github"
 	"../domain/repositories"
+	"../log"
 	provider "../providers/github_provider"
 	"../utils/errors"
 )
@@ -62,6 +64,12 @@ func (s *repositoryService) CreateRepository(
 		Private:     false,
 	}
 
+	log.Info(
+		"about to send request to external API",
+		fmt.Sprintf("client_id: %s", clientID),
+		"status:pending",
+	)
+
 	// sending create repo request with secret access token
 	response, error := provider.CreateRepository(
 		config.GetGithubAccessToken(),
@@ -69,11 +77,22 @@ func (s *repositoryService) CreateRepository(
 	)
 	if error != nil {
 		// new api error based on what we recieve from Github
+		log.Info(
+			"response obtained from external API",
+			fmt.Sprintf("client_id: %s", clientID),
+			"status:error",
+		)
+
 		return nil, errors.NewAPIError(
 			error.StatusCode,
 			error.Message,
 		)
 	}
+	log.Info(
+		"response obtained from external API",
+		fmt.Sprintf("client_id: %s", clientID),
+		"status:success",
+	)
 
 	result := repositories.CreateRepositoryResponse{
 		ID:    response.ID,
